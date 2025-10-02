@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Gym Coach AI</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="top-bar">
+      <h1>Gym Coach AI</h1>
+      <nav>
+        <a href="{{ url_for('dashboard') }}">Inicio</a>
+        <a href="{{ url_for('workouts') }}">Sesiones</a>
+        <a href="{{ url_for('events') }}">Calendario</a>
+        <a href="{{ url_for('reminders_view') }}">Recordatorios</a>
+        <a href="{{ url_for('metrics') }}">Métricas</a>
+      </nav>
+    </header>
+    <main class="container">
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="flash">
+            {% for message in messages %}
+              <p>{{ message }}</p>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      {% block content %}{% endblock %}
+    </main>
+    <footer class="footer">
+      <p>Hecho con foco en tus objetivos. 🌟</p>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Registrar métricas corporales</h2>
+  <form method="post" class="form-grid">
+    <label>
+      Fecha
+      <input type="date" name="metric_date" required>
+    </label>
+    <label>
+      Peso (kg)
+      <input type="number" name="weight_kg" step="0.1" required>
+    </label>
+    <label>
+      Grasa corporal (%)
+      <input type="number" name="body_fat" step="0.1" min="0" max="70">
+    </label>
+    <label class="span-2">
+      Notas
+      <textarea name="notes" rows="2" placeholder="Sueño, alimentación, energía..."></textarea>
+    </label>
+    <button type="submit" class="button primary">Guardar métrica</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Historial</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Peso</th>
+        <th>Grasa</th>
+        <th>Notas</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for metric in metrics %}
+        <tr>
+          <td>{{ metric.metric_date.strftime('%d/%m/%Y') }}</td>
+          <td>{{ metric.weight_kg }} kg</td>
+          <td>{{ metric.body_fat if metric.body_fat is not none else '-' }}%</td>
+          <td>{{ metric.notes or '' }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4">Registra tu peso y porcentaje de grasa para visualizar cambios.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

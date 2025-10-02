@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Nuevos recordatorios</h2>
+  <form method="post" class="form-grid">
+    <label>
+      Título
+      <input type="text" name="title" required>
+    </label>
+    <label>
+      Fecha límite
+      <input type="date" name="due_date" required>
+    </label>
+    <label class="span-2">
+      Notas
+      <textarea name="notes" rows="2" placeholder="Por ejemplo: preparar outfit, preparar batido..."></textarea>
+    </label>
+    <button type="submit" class="button primary">Crear recordatorio</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Pendientes</h2>
+  <ul class="list">
+    {% for reminder in reminders %}
+      <li class="{% if reminder.completed %}done{% endif %}">
+        <form method="post" action="{{ url_for('toggle_reminder', reminder_id=reminder.id) }}">
+          <button type="submit" class="toggle">{% if reminder.completed %}✔{% else %}○{% endif %}</button>
+          <div>
+            <strong>{{ reminder.title }}</strong>
+            <span>{{ reminder.due_date.strftime('%d/%m/%Y') }}</span>
+            <p>{{ reminder.notes or '' }}</p>
+          </div>
+        </form>
+      </li>
+    {% else %}
+      <li>No tienes recordatorios aún.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}

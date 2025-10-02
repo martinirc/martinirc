@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="grid">
+  <article class="card span-2">
+    <h2>Recomendaciones de la IA</h2>
+    <ul>
+      {% for rec in recommendations %}
+        <li>{{ rec }}</li>
+      {% endfor %}
+    </ul>
+  </article>
+  <article class="card">
+    <h2>Próximas sesiones</h2>
+    <ul>
+      {% for session in sessions %}
+        <li>
+          <strong>{{ session.session_date.strftime('%d/%m') }}</strong>
+          — {{ session.focus }}
+        </li>
+      {% else %}
+        <li>Registra tu primera sesión para comenzar.</li>
+      {% endfor %}
+    </ul>
+    <a class="button" href="{{ url_for('workouts') }}">Gestionar sesiones</a>
+  </article>
+  <article class="card">
+    <h2>Eventos próximos</h2>
+    <ul>
+      {% for event in events %}
+        <li>
+          <strong>{{ event.start_datetime.strftime('%d/%m %H:%M') }}</strong>
+          — {{ event.title }}
+        </li>
+      {% else %}
+        <li>Añade tus entrenamientos al calendario.</li>
+      {% endfor %}
+    </ul>
+    <a class="button" href="{{ url_for('events') }}">Administrar calendario</a>
+  </article>
+  <article class="card">
+    <h2>Recordatorios pendientes</h2>
+    <ul>
+      {% for reminder in reminders %}
+        <li>
+          <strong>{{ reminder.due_date.strftime('%d/%m') }}</strong>
+          — {{ reminder.title }}
+        </li>
+      {% else %}
+        <li>Configura recordatorios para mantener la constancia.</li>
+      {% endfor %}
+    </ul>
+    <a class="button" href="{{ url_for('reminders_view') }}">Ver recordatorios</a>
+  </article>
+  <article class="card span-2">
+    <h2>Notas de progreso</h2>
+    <ul>
+      {% for note in progress_notes %}
+        <li>{{ note }}</li>
+      {% else %}
+        <li>Cuando registres ejercicios con peso veremos tu progreso aquí.</li>
+      {% endfor %}
+    </ul>
+    <a class="button" href="{{ url_for('metrics') }}">Registrar métricas corporales</a>
+  </article>
+</section>
+{% endblock %}

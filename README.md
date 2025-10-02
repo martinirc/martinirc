@@ -5,3 +5,21 @@
 📫 How to reach me: @martini_rc or j.martini.rc@gmail.com. Also you can check out my motion project: www.by-fiction.com
 😄 Pronouns: He/Him
 ⚡ Fun fact:  I once tried to communicate with a stubborn octopus using interpretive dance and ended up with a new seafood recipe instead.
+
+## Gym Coach AI
+
+Esta aplicación web permite registrar tus sesiones de entrenamiento, métricas corporales y recordatorios. Para ejecutarla localmente:
+
+```bash
+pip install -r requirements.txt
+export FLASK_APP=app.app
+flask run
+```
+
+También puedes iniciar el servidor ejecutando directamente:
+
+```bash
+python -m app.app
+```
+
+Los datos se guardan en un archivo SQLite (`gym_coach.db`) en la raíz del proyecto.
