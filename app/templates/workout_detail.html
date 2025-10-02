@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Sesión del {{ workout.session_date.strftime('%d/%m/%Y') }} — {{ workout.focus }}</h2>
+  <p>{{ workout.notes or 'Sin notas adicionales.' }}</p>
+</section>
+<section class="card">
+  <h3>Agregar ejercicio</h3>
+  <form method="post" class="form-grid">
+    <label>
+      Nombre
+      <input type="text" name="name" required>
+    </label>
+    <label>
+      Series
+      <input type="number" name="sets" min="1" value="3">
+    </label>
+    <label>
+      Repeticiones
+      <input type="number" name="reps" min="1" value="12">
+    </label>
+    <label>
+      Peso (kg)
+      <input type="number" name="weight" min="0" step="1">
+    </label>
+    <button type="submit" class="button primary">Añadir ejercicio</button>
+  </form>
+</section>
+<section class="card">
+  <h3>Registro de ejercicios</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Ejercicio</th>
+        <th>Series</th>
+        <th>Reps</th>
+        <th>Peso (kg)</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for exercise in workout.exercises %}
+        <tr>
+          <td>{{ exercise.name }}</td>
+          <td>{{ exercise.sets }}</td>
+          <td>{{ exercise.reps }}</td>
+          <td>{{ exercise.weight or '-' }}</td>
+        </tr>
+      {% else %}
+        <tr>
+          <td colspan="4">Aún no hay ejercicios registrados.</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+{% endblock %}

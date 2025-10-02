@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+<section class="card">
+  <h2>Planifica tu calendario</h2>
+  <form method="post" class="form-grid">
+    <label>
+      Título
+      <input type="text" name="title" required>
+    </label>
+    <label>
+      Fecha y hora
+      <input type="datetime-local" name="start_datetime" required>
+    </label>
+    <label class="span-2">
+      Notas
+      <textarea name="notes" rows="2" placeholder="Indicaciones, lugar, objetivo..."></textarea>
+    </label>
+    <button type="submit" class="button primary">Añadir evento</button>
+  </form>
+</section>
+<section class="card">
+  <h2>Próximos eventos</h2>
+  <ul class="list">
+    {% for event in events %}
+      <li>
+        <div>
+          <strong>{{ event.start_datetime.strftime('%d/%m/%Y %H:%M') }}</strong>
+          — {{ event.title }}
+        </div>
+        <p>{{ event.notes or '' }}</p>
+      </li>
+    {% else %}
+      <li>No hay eventos aún, agenda tu siguiente entrenamiento.</li>
+    {% endfor %}
+  </ul>
+</section>
+{% endblock %}
